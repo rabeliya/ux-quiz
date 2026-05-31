@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { HEURISTICS } from '../data/questions'
 import styles from './LearnScreen.module.css'
 
@@ -17,6 +17,15 @@ export default function LearnScreen({ onExit }) {
   }
 
   const h = step > 0 ? HEURISTICS[step - 1] : null
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight') handleNext()
+      if (e.key === 'ArrowLeft') handlePrev()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [step])
 
   return (
     <div className={styles.container}>

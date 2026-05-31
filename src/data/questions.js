@@ -1,13 +1,13 @@
 export const HEURISTICS = [
   { id: 1, name: 'システム状態の視認性', en: 'Visibility of system status', description: 'システムが今どういう状態にあるか、適切なフィードバックを通じてユーザーに常に伝える。' },
-  { id: 2, name: 'システムと実世界の一致', en: 'Match between system and the real world', description: 'ユーザーが日常で慣れ親しんだ言葉・概念・慣習を使い、自然な順序で情報を提示する。' },
-  { id: 3, name: 'ユーザーのコントロールと自由', en: 'User control and freedom', description: '誤操作からすぐに抜け出せる「緊急脱出口」を用意し、ユーザーに主導権を与える。' },
-  { id: 4, name: '一貫性と標準', en: 'Consistency and standards', description: '同じ言葉・操作・UIは常に同じ意味を持つようにし、プラットフォームの慣例にも従う。' },
+  { id: 2, name: 'システムと現実世界の対応', en: 'Match between system and the real world', description: 'ユーザーが日常で慣れ親しんだ言葉・概念・慣習を使い、自然な順序で情報を提示する。' },
+  { id: 3, name: 'ユーザーの自由と制御', en: 'User control and freedom', description: '誤操作からすぐに抜け出せる「緊急脱出口」を用意し、ユーザーに主導権を与える。' },
+  { id: 4, name: '一貫性と標準化', en: 'Consistency and standards', description: '同じ言葉・操作・UIは常に同じ意味を持つようにし、プラットフォームの慣例にも従う。' },
   { id: 5, name: 'エラーの予防', en: 'Error prevention', description: 'エラーが発生しやすい状況を事前に把握し、そもそも問題が起きないよう設計する。' },
-  { id: 6, name: '再生よりも再認', en: 'Recognition rather than recall', description: '記憶に頼らせず、選択肢・アクション・情報を画面上に見える形で提示する。' },
+  { id: 6, name: '記憶よりも認識', en: 'Recognition rather than recall', description: '記憶に頼らせず、選択肢・アクション・情報を画面上に見える形で提示する。' },
   { id: 7, name: '柔軟性と効率性', en: 'Flexibility and efficiency of use', description: 'ショートカットや一括操作など、熟練ユーザーが素早く動ける手段を初心者の妨げにならない形で提供する。' },
-  { id: 8, name: '美的でミニマルなデザイン', en: 'Aesthetic and minimalist design', description: '不要な情報や装飾を排除し、本当に必要なコンテンツだけを際立たせる。' },
-  { id: 9, name: 'エラーの認識・診断・回復のサポート', en: 'Help users recognize, diagnose, and recover from errors', description: 'エラーメッセージは平易な言葉で原因を説明し、具体的な解決策を示す。' },
+  { id: 8, name: '美的・最小限のデザイン', en: 'Aesthetic and minimalist design', description: '不要な情報や装飾を排除し、本当に必要なコンテンツだけを際立たせる。' },
+  { id: 9, name: 'エラーからの回復支援', en: 'Help users recognize, diagnose, and recover from errors', description: 'エラーメッセージは平易な言葉で原因を説明し、具体的な解決策を示す。' },
   { id: 10, name: 'ヘルプとドキュメント', en: 'Help and documentation', description: 'ヘルプはいつでも検索・参照できる形で用意し、具体的なタスクに絞った手順で示す。' },
 ]
 

@@ -6,11 +6,13 @@ import { selectQuestions } from './data/questions'
 
 function App() {
   const [screen, setScreen] = useState('top')
+  const [level, setLevel] = useState('normal')
   const [questions, setQuestions] = useState([])
   const [answers, setAnswers] = useState([])
 
-  const handleStart = useCallback(() => {
-    setQuestions(selectQuestions())
+  const handleStart = useCallback((selectedLevel = 'normal') => {
+    setLevel(selectedLevel)
+    setQuestions(selectQuestions(selectedLevel))
     setAnswers([])
     setScreen('quiz')
   }, [])
@@ -31,8 +33,8 @@ function App() {
   return (
     <>
       {screen === 'top' && <TopScreen onStart={handleStart} />}
-      {screen === 'quiz' && <QuizScreen questions={questions} onComplete={handleComplete} onQuit={handleQuit} />}
-      {screen === 'result' && <ResultScreen answers={answers} onRetry={handleRetry} />}
+      {screen === 'quiz' && <QuizScreen questions={questions} level={level} onComplete={handleComplete} onQuit={handleQuit} />}
+      {screen === 'result' && <ResultScreen answers={answers} level={level} onRetry={handleRetry} />}
     </>
   )
 }

@@ -1,10 +1,15 @@
 import styles from './ResultScreen.module.css'
-import { HEURISTICS } from '../data/questions'
+import { HEURISTICS, getCorrectIds } from '../data/questions'
 
 const heuristicName = (id) => {
   const h = HEURISTICS.find(h => h.id === id)
   return h ? `原則 ${id}：${h.name}` : `原則 ${id}`
 }
+
+// selected が単数（旧データ）でも配列でも安全に配列化する
+const toIds = (value) => (Array.isArray(value) ? value : [value])
+
+const heuristicNames = (ids) => toIds(ids).map(heuristicName).join(' ／ ')
 
 const RANKS = [
   { min: 10, title: 'ヒューリスティクス・マスター', subtitle: 'ニールセンの再来。完璧です。' },
@@ -17,15 +22,16 @@ function getRank(score) {
   return RANKS.find(r => score >= r.min)
 }
 
-export default function ResultScreen({ answers, onRetry }) {
+export default function ResultScreen({ answers, level = 'normal', onRetry }) {
   const score = answers.filter(a => a.isCorrect).length
   const total = answers.length
   const rank = getRank(score)
-  const wrong = answers.filter(a => !a.isCorrect)
+  const isAdvanced = level === 'advanced'
 
   return (
     <div className={styles.container}>
       <div className={styles.scoreSection}>
+        {isAdvanced && <p className={styles.levelTag}>上級モード</p>}
         <p className={styles.scoreLabel}>スコア</p>
         <div className={styles.scoreDisplay}>
           <span className={styles.scoreNum}>{score}</span>
@@ -44,9 +50,9 @@ export default function ResultScreen({ answers, onRetry }) {
                 <span className={a.isCorrect ? styles.correctBadge : styles.incorrectBadge}>
                   {a.isCorrect ? '正解' : '不正解'}
                 </span>
-                <span className={styles.correctPrinciple}>{heuristicName(a.question.correct_answer)}</span>
+                <span className={styles.correctPrinciple}>{heuristicNames(getCorrectIds(a.question))}</span>
               </div>
-              <p className={styles.yourAnswer}>あなたの回答：{heuristicName(a.selected)}</p>
+              <p className={styles.yourAnswer}>あなたの回答：{heuristicNames(a.selected)}</p>
               <p className={styles.reviewSituation}>{a.question.situation}</p>
               <p className={styles.reviewExplanation}>{a.question.explanation}</p>
             </div>
@@ -56,7 +62,7 @@ export default function ResultScreen({ answers, onRetry }) {
 
       <div className={styles.retryWrap}>
         <button className={styles.retryBtn} onClick={onRetry}>
-          もう一度挑戦する
+          TOPに戻る
         </button>
       </div>
     </div>

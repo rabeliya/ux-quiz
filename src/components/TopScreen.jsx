@@ -23,9 +23,17 @@ export default function TopScreen({ onStart }) {
           <span className={styles.dot} />
           <span>ランダム出題</span>
         </div>
-        <button className={styles.startBtn} onClick={onStart}>
-          クイズを始める
-        </button>
+        <div className={styles.levels}>
+          <button className={styles.levelBtn} onClick={() => onStart('normal')}>
+            <span className={styles.levelName}>通常モード</span>
+            <span className={styles.levelDesc}>原則を1つ選ぶ</span>
+          </button>
+          <button className={`${styles.levelBtn} ${styles.levelAdvanced}`} onClick={() => onStart('advanced')}>
+            <span className={styles.levelBadge}>上級</span>
+            <span className={styles.levelName}>上級モード</span>
+            <span className={styles.levelDesc}>該当する原則を2つ選ぶ</span>
+          </button>
+        </div>
         <button className={styles.hintBtn} onClick={() => setShowModal(true)}>
           ニールセンの10原則とは？
         </button>

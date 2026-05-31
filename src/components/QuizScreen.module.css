@@ -153,6 +153,14 @@
   font-weight: 500;
 }
 
+.pickHint {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
 .emphGood {
   color: var(--color-good);
   font-weight: 700;
@@ -195,6 +203,15 @@
   transform: scale(0.97);
 }
 
+/* Locked-out (already picked 2 in advanced mode) */
+.hBtn:disabled {
+  cursor: default;
+}
+
+.state-default:disabled {
+  opacity: 0.4;
+}
+
 .hNum {
   font-size: 11px;
   font-weight: 600;
@@ -222,6 +239,16 @@
   right: 10px;
   font-size: 16px;
   font-weight: 700;
+}
+
+/* Selected (advanced mode, before submitting) */
+.state-selected {
+  background: #f5f4ff !important;
+  border-color: var(--color-primary) !important;
+}
+.state-selected .hNum,
+.state-selected .hName {
+  color: var(--color-primary);
 }
 
 /* Button states after answering */
@@ -310,6 +337,13 @@
   background: var(--color-primary-hover);
 }
 
-.nextBtn:active {
+.nextBtn:active:not(:disabled) {
   transform: scale(0.98);
+}
+
+.nextBtn:disabled {
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  box-shadow: none;
+  cursor: default;
 }

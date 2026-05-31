@@ -1,29 +1,56 @@
 import { useState, useRef } from 'react'
-import { HEURISTICS } from '../data/questions'
+import { HEURISTICS, getCorrectIds } from '../data/questions'
 import { playSound } from '../utils/sound'
 import styles from './QuizScreen.module.css'
 
-export default function QuizScreen({ questions, onComplete, onQuit }) {
+const isExactMatch = (a, b) => {
+  if (a.length !== b.length) return false
+  const sortedB = [...b].sort((x, y) => x - y)
+  return [...a].sort((x, y) => x - y).every((v, i) => v === sortedB[i])
+}
+
+export default function QuizScreen({ questions, level = 'normal', onComplete, onQuit }) {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [selectedAnswer, setSelectedAnswer] = useState(null)
+  const [selected, setSelected] = useState([])
   const [answered, setAnswered] = useState(false)
   const [showQuitConfirm, setShowQuitConfirm] = useState(false)
   const answersRef = useRef([])
 
+  const isAdvanced = level === 'advanced'
+  const pickCount = isAdvanced ? 2 : 1
   const question = questions[currentIndex]
   const isGood = question.type === 'good'
+  const correctIds = getCorrectIds(question)
   const progress = ((currentIndex + 1) / questions.length) * 100
+  const isAnswerCorrect = answered && isExactMatch(selected, correctIds)
 
-  const handleAnswer = (heuristicId) => {
-    if (answered) return
-    const isCorrect = heuristicId === question.correct_answer
-    playSound(isCorrect ? 'correct' : 'incorrect')
-    setSelectedAnswer(heuristicId)
+  const submitAnswer = (ids) => {
+    const correct = isExactMatch(ids, correctIds)
+    playSound(correct ? 'correct' : 'incorrect')
+    setSelected(ids)
     setAnswered(true)
     answersRef.current = [
       ...answersRef.current,
-      { question, selected: heuristicId, isCorrect },
+      { question, selected: ids, isCorrect: correct },
     ]
+  }
+
+  const handleSelect = (id) => {
+    if (answered) return
+    if (!isAdvanced) {
+      submitAnswer([id])
+      return
+    }
+    setSelected((prev) => {
+      if (prev.includes(id)) return prev.filter((x) => x !== id)
+      if (prev.length >= pickCount) return prev
+      return [...prev, id]
+    })
+  }
+
+  const handleConfirm = () => {
+    if (selected.length !== pickCount) return
+    submitAnswer(selected)
   }
 
   const handleNext = () => {
@@ -33,14 +60,14 @@ export default function QuizScreen({ questions, onComplete, onQuit }) {
       return
     }
     setCurrentIndex(nextIndex)
-    setSelectedAnswer(null)
+    setSelected([])
     setAnswered(false)
   }
 
-  const getButtonState = (heuristicId) => {
-    if (!answered) return 'default'
-    if (heuristicId === question.correct_answer) return 'correct'
-    if (heuristicId === selectedAnswer) return 'incorrect'
+  const getButtonState = (id) => {
+    if (!answered) return selected.includes(id) ? 'selected' : 'default'
+    if (correctIds.includes(id)) return 'correct'
+    if (selected.includes(id)) return 'incorrect'
     return 'dimmed'
   }
 
@@ -77,23 +104,30 @@ export default function QuizScreen({ questions, onComplete, onQuit }) {
           <p className={styles.situation}>{question.situation}</p>
 
           <p className={styles.questionText}>
+            このデザインは、{isAdvanced ? 'どの2つの原則' : 'どの原則'}
             {isGood ? (
-              <>このデザインは、どの原則を<strong className={styles.emphGood}>【満たして】</strong>いますか？</>
+              <>を<strong className={styles.emphGood}>【満たして】</strong>いますか？</>
             ) : (
-              <>このデザインは、どの原則に<strong className={styles.emphBad}>【違反】</strong>していますか？</>
+              <>に<strong className={styles.emphBad}>【違反】</strong>していますか？</>
             )}
           </p>
+          {isAdvanced && !answered && (
+            <p className={styles.pickHint}>
+              該当する原則を2つ選んで「回答する」を押してください。
+            </p>
+          )}
         </div>
 
         <div className={styles.grid}>
           {HEURISTICS.map((h) => {
             const state = getButtonState(h.id)
+            const lockedOut = isAdvanced && !answered && selected.length >= pickCount && !selected.includes(h.id)
             return (
               <button
                 key={h.id}
                 className={`${styles.hBtn} ${styles[`state-${state}`]}`}
-                onClick={() => handleAnswer(h.id)}
-                disabled={answered}
+                onClick={() => handleSelect(h.id)}
+                disabled={answered || lockedOut}
               >
                 <span className={styles.hNum}>原則 {h.id}</span>
                 <span className={styles.hName}>{h.name}</span>
@@ -107,13 +141,27 @@ export default function QuizScreen({ questions, onComplete, onQuit }) {
 
         {answered && (
           <div className={styles.feedback} style={{ animation: 'slide-up 0.3s ease' }}>
-            <div className={`${styles.resultBadge} ${selectedAnswer === question.correct_answer ? styles.resultCorrect : styles.resultIncorrect}`}>
-              {selectedAnswer === question.correct_answer ? '正解！' : '不正解'}
+            <div className={`${styles.resultBadge} ${isAnswerCorrect ? styles.resultCorrect : styles.resultIncorrect}`}>
+              {isAnswerCorrect ? '正解！' : '不正解'}
             </div>
             <p className={styles.explanation}>{question.explanation}</p>
           </div>
         )}
       </main>
+
+      {isAdvanced && !answered && (
+        <footer className={styles.footer}>
+          <button
+            className={styles.nextBtn}
+            onClick={handleConfirm}
+            disabled={selected.length !== pickCount}
+          >
+            {selected.length < pickCount
+              ? `あと ${pickCount - selected.length} つ選択`
+              : '回答する'}
+          </button>
+        </footer>
+      )}
 
       {answered && (
         <footer className={styles.footer}>

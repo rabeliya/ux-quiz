@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react'
 import { HEURISTICS, getCorrectIds } from '../data/questions'
-import { playSound } from '../utils/sound'
 import styles from './QuizScreen.module.css'
 
 const isExactMatch = (a, b) => {
@@ -26,7 +25,6 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
 
   const submitAnswer = (ids) => {
     const correct = isExactMatch(ids, correctIds)
-    playSound(correct ? 'correct' : 'incorrect')
     setSelected(ids)
     setAnswered(true)
     answersRef.current = [

@@ -34,7 +34,7 @@
   flex-direction: column;
   justify-content: flex-start;
   margin-right: -24px;
-  padding: 16px 24px 16px 0;
+  padding: 16px 24px 0 0;
 }
 
 /* Card top row: progress + close */
@@ -166,6 +166,13 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.cardContent::after {
+  content: '';
+  display: block;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 .exampleGood {

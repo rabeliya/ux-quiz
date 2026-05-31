@@ -81,6 +81,8 @@ npm run build
 
 ## ニールセンの10原則
 
+出典: [10 Usability Heuristics for User Interface Design — Nielsen Norman Group](https://www.nngroup.com/articles/ten-usability-heuristics/)
+
 | # | 原則名 |
 |---|--------|
 | 1 | システム状態の視認性 |

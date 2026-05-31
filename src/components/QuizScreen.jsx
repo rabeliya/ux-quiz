@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { HEURISTICS, getCorrectIds } from '../data/questions'
+import HeuristicsModal from './HeuristicsModal'
 import styles from './QuizScreen.module.css'
 
 const isExactMatch = (a, b) => {
@@ -13,6 +14,7 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
   const [selected, setSelected] = useState([])
   const [answered, setAnswered] = useState(false)
   const [showQuitConfirm, setShowQuitConfirm] = useState(false)
+  const [showRef, setShowRef] = useState(false)
   const answersRef = useRef([])
 
   const isAdvanced = level === 'advanced'
@@ -76,14 +78,21 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
           <span className={styles.progressText}>
             第 {currentIndex + 1} / {questions.length} 問
           </span>
-          <button className={styles.quitBtn} onClick={() => setShowQuitConfirm(true)}>
-            やめる
-          </button>
+          <div className={styles.headerActions}>
+            <button className={styles.refBtn} onClick={() => setShowRef(true)}>
+              10原則
+            </button>
+            <button className={styles.quitBtn} onClick={() => setShowQuitConfirm(true)}>
+              やめる
+            </button>
+          </div>
         </div>
         <div className={styles.progressBar}>
           <div className={styles.progressFill} style={{ width: `${progress}%` }} />
         </div>
       </header>
+
+      {showRef && <HeuristicsModal onClose={() => setShowRef(false)} />}
 
       {showQuitConfirm && (
         <div className={styles.overlay} onClick={() => setShowQuitConfirm(false)}>

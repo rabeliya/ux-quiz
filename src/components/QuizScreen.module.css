@@ -30,6 +30,26 @@
   color: var(--color-text-muted);
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.refBtn {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-primary);
+  background: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+
+.refBtn:hover {
+  background: rgba(79, 70, 229, 0.08);
+}
+
 .quitBtn {
   font-size: 13px;
   font-weight: 500;

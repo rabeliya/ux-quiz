@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import TopScreen from './components/TopScreen'
 import QuizScreen from './components/QuizScreen'
 import ResultScreen from './components/ResultScreen'
+import LearnScreen from './components/LearnScreen'
 import { selectQuestions } from './data/questions'
 
 function App() {
@@ -16,6 +17,9 @@ function App() {
     setAnswers([])
     setScreen('quiz')
   }, [])
+
+  const handleLearn = useCallback(() => setScreen('learn'), [])
+  const handleExitLearn = useCallback(() => setScreen('top'), [])
 
   const handleComplete = useCallback((answersData) => {
     setAnswers(answersData)
@@ -32,7 +36,8 @@ function App() {
 
   return (
     <>
-      {screen === 'top' && <TopScreen onStart={handleStart} />}
+      {screen === 'top' && <TopScreen onStart={handleStart} onLearn={handleLearn} />}
+      {screen === 'learn' && <LearnScreen onExit={handleExitLearn} />}
       {screen === 'quiz' && <QuizScreen questions={questions} level={level} onComplete={handleComplete} onQuit={handleQuit} />}
       {screen === 'result' && <ResultScreen answers={answers} level={level} onRetry={handleRetry} />}
     </>

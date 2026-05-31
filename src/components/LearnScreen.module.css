@@ -34,7 +34,7 @@
   flex-direction: column;
   justify-content: flex-start;
   margin-right: -24px;
-  padding: 8px 24px 8px 0;
+  padding: 16px 24px 16px 0;
 }
 
 /* Card top row: progress + close */
@@ -42,7 +42,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: -20px -24px 16px -24px;
+  margin: -20px -24px 0 -24px;
   padding: 14px 24px 10px;
   background: var(--color-surface);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
@@ -209,7 +209,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 16px -24px -24px -24px;
+  margin: 0 -24px -24px -24px;
   padding: 12px 24px 20px;
   background: var(--color-surface);
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);

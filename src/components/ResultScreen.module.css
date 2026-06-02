@@ -18,11 +18,12 @@
   display: inline-block;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   color: var(--color-primary);
-  background: rgba(79, 70, 229, 0.1);
+  background: rgba(67, 56, 202, 0.07);
+  border: 1px solid rgba(67, 56, 202, 0.16);
   border-radius: 100px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   margin-bottom: 16px;
 }
 
@@ -165,21 +166,31 @@
 }
 
 .retryBtn {
+  position: relative;
   width: 100%;
   padding: 16px;
-  background: var(--color-primary);
+  background: var(--gradient-primary);
   color: #fff;
   font-size: 16px;
   font-weight: 700;
   border-radius: var(--radius-md);
-  transition: background 0.15s, transform 0.1s;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+  box-shadow: var(--shadow-primary);
+}
+
+.retryBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  pointer-events: none;
 }
 
 .retryBtn:hover {
-  background: var(--color-primary-hover);
+  box-shadow: var(--shadow-primary-hover);
 }
 
 .retryBtn:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }

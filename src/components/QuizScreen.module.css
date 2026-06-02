@@ -47,7 +47,7 @@
 }
 
 .refBtn:hover {
-  background: rgba(79, 70, 229, 0.08);
+  background: rgba(67, 56, 202, 0.08);
 }
 
 .quitBtn {
@@ -140,7 +140,7 @@
 
 .progressFill {
   height: 100%;
-  background: var(--color-primary);
+  background: var(--gradient-primary);
   border-radius: 100px;
   transition: width 0.4s ease;
 }
@@ -155,7 +155,7 @@
   border-radius: var(--radius-lg);
   padding: 24px;
   margin-bottom: 16px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   animation: pop-in 0.3s ease;
 }
 
@@ -342,23 +342,33 @@
 }
 
 .nextBtn {
+  position: relative;
   width: 100%;
   padding: 16px;
-  background: var(--color-primary);
+  background: var(--gradient-primary);
   color: #fff;
   font-size: 16px;
   font-weight: 700;
   border-radius: var(--radius-md);
-  transition: background 0.15s, transform 0.1s;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+  box-shadow: var(--shadow-primary);
 }
 
-.nextBtn:hover {
-  background: var(--color-primary-hover);
+.nextBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+}
+
+.nextBtn:hover:not(:disabled) {
+  box-shadow: var(--shadow-primary-hover);
 }
 
 .nextBtn:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
 .nextBtn:disabled {
@@ -366,4 +376,8 @@
   color: var(--color-text-muted);
   box-shadow: none;
   cursor: default;
+}
+
+.nextBtn:disabled::before {
+  display: none;
 }

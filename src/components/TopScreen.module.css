@@ -1,36 +1,82 @@
 .container {
+  position: relative;
   min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px 20px;
-  animation: fade-in 0.4s ease;
+  overflow: hidden;
+  animation: fade-in 0.3s ease;
 }
 
+.decor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decorDesktop {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (min-width: 768px) {
+  .decor { display: none; }
+  .decorDesktop { display: block; }
+}
+
+
+
 .content {
+  position: relative;
+  z-index: 1;
   text-align: center;
   max-width: 480px;
   width: 100%;
+  padding-top: 48px;
 }
 
 .badge {
   display: inline-block;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--color-primary);
-  background: rgba(79, 70, 229, 0.08);
+  background: none;
+  border: 1px solid var(--color-primary);
   border-radius: 100px;
-  padding: 5px 14px;
+  padding: 6px 15px;
   margin-bottom: 24px;
   text-transform: uppercase;
 }
 
+.titleNoBreak {
+  white-space: nowrap;
+}
+
+.titleBr {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .titleBr {
+    display: none;
+  }
+}
+
 .title {
-  font-size: clamp(28px, 6vw, 40px);
+  font-size: clamp(38px, 9vw, 56px);
   font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
   color: var(--color-text);
   margin-bottom: 20px;
 }
@@ -68,12 +114,12 @@
   padding: 16px 48px;
   border-radius: 100px;
   transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  box-shadow: 0 4px 14px rgba(67, 56, 202, 0.35);
 }
 
 .startBtn:hover {
   background: var(--color-primary-hover);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+  box-shadow: 0 6px 20px rgba(67, 56, 202, 0.45);
 }
 
 .startBtn:active {
@@ -89,37 +135,49 @@
 .levelBtn {
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
   width: 100%;
-  padding: 18px 24px;
-  background: var(--color-primary);
+  padding: 16px 20px;
+  background: var(--gradient-primary);
   color: #fff;
   border-radius: var(--radius-md);
-  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+  box-shadow: var(--shadow-primary);
+}
+
+.levelBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  pointer-events: none;
 }
 
 .levelBtn:hover {
-  background: var(--color-primary-hover);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+  box-shadow: var(--shadow-primary-hover);
 }
 
 .levelBtn:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
 .levelAdvanced {
   background: var(--color-surface);
-  color: var(--color-text);
-  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
+  border: 1.5px solid rgba(67, 56, 202, 0.5);
   box-shadow: var(--shadow-sm);
 }
 
+.levelAdvanced::before {
+  display: none;
+}
+
 .levelAdvanced:hover {
-  background: #f5f4ff;
-  box-shadow: var(--shadow-sm);
+  background: #f7f6ff;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
 }
 
 .levelBadge {
@@ -130,32 +188,54 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--color-primary);
-  background: rgba(79, 70, 229, 0.1);
+  background: rgba(67, 56, 202, 0.1);
   border-radius: 100px;
   padding: 3px 9px;
 }
 
+.levelInner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 220px;
+}
+
+.levelIcon {
+  width: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.levelText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
 .levelName {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
 }
 
 .levelDesc {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   opacity: 0.85;
 }
 
 .levelAdvanced .levelDesc {
-  color: var(--color-text-muted);
+  color: var(--color-primary);
   opacity: 1;
 }
 
 .hintBtn {
   display: block;
-  margin: 20px auto 0;
-  font-size: 13px;
-  color: var(--color-text-muted);
+  margin: 28px auto 0;
+  font-size: 15px;
+  color: var(--color-primary);
   background: none;
   text-decoration: underline;
   text-underline-offset: 3px;

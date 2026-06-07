@@ -132,7 +132,6 @@
   height: 38px;
   border-radius: 50%;
   background: var(--gradient-primary);
-  box-shadow: 0 2px 8px rgba(67, 56, 202, 0.3);
   color: #fff;
   font-size: 15px;
   font-weight: 700;

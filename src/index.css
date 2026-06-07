@@ -5,7 +5,7 @@
 }
 
 html {
-  scrollbar-gutter: stable;
+  overflow: hidden;
 }
 
 :root {
@@ -46,7 +46,6 @@ body {
   min-height: 100dvh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scrollbar-gutter: stable;
 }
 
 #root {

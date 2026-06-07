@@ -16,6 +16,7 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
   const [showQuitConfirm, setShowQuitConfirm] = useState(false)
   const [showRef, setShowRef] = useState(false)
   const answersRef = useRef([])
+  const containerRef = useRef(null)
 
   const isAdvanced = level === 'advanced'
   const pickCount = isAdvanced ? 2 : 1
@@ -62,7 +63,7 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
     setCurrentIndex(nextIndex)
     setSelected([])
     setAnswered(false)
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    containerRef.current?.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   const getButtonState = (id) => {
@@ -73,8 +74,8 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.decorLayer} aria-hidden="true">
+    <>
+    <div className={styles.decorLayer} aria-hidden="true">
       {/* 散りばめ図形（選択肢背景） */}
       <svg
         className={styles.decorScatter}
@@ -164,7 +165,8 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
           <circle cx="88" cy="60" r="4" fill="currentColor"/>
         </g>
       </svg>
-      </div>
+    </div>
+    <div className={styles.container} ref={containerRef}>
       <header className={styles.header}>
         <div className={styles.headerTop}>
           <span className={styles.progressText}>
@@ -270,5 +272,6 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
         </footer>
       )}
     </div>
+    </>
   )
 }

@@ -1,6 +1,7 @@
 .container {
-  position: relative;
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow-y: auto;
+  scrollbar-width: none;
   display: flex;
   flex-direction: column;
   max-width: 600px;
@@ -8,6 +9,10 @@
   width: 100%;
   padding: 0 16px;
   animation: fade-in 0.3s ease;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 /* ビューポート全幅の装飾レイヤー（600pxコンテナの外まで覗かせる） */

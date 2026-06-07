@@ -29,8 +29,8 @@ export default function ResultScreen({ answers, level = 'normal', onRetry }) {
   const isAdvanced = level === 'advanced'
 
   return (
-    <div className={styles.container}>
-      <div className={styles.decorLayer} aria-hidden="true">
+    <>
+    <div className={styles.decorLayer} aria-hidden="true">
         {/* 散りばめ図形 */}
         <svg
           className={styles.decorScatter}
@@ -117,7 +117,8 @@ export default function ResultScreen({ answers, level = 'normal', onRetry }) {
             <circle cx="88" cy="60" r="4" fill="currentColor"/>
           </g>
         </svg>
-      </div>
+    </div>
+    <div className={styles.container}>
       <div className={styles.scoreSection}>
         {isAdvanced && <p className={styles.levelTag}>上級モード</p>}
         <p className={styles.scoreLabel}>スコア</p>
@@ -154,5 +155,6 @@ export default function ResultScreen({ answers, level = 'normal', onRetry }) {
         </button>
       </div>
     </div>
+    </>
   )
 }

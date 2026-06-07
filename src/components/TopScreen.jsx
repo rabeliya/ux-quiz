@@ -52,8 +52,8 @@ export default function TopScreen({ onStart, onLearn }) {
         </defs>
         <g clipPath="url(#topDecorClip)" filter="url(#grainOnShapes)">
           {/* コーナーアンカー（3隅） */}
-          <path d="M197 1595C197 1486.75 109.248 1399 1 1399C-107.248 1399 -195 1486.75 -195 1595" stroke="url(#gradGray)" strokeWidth="80"/>
-          <path d="M1074 1487C1074 1409.68 1011.32 1347 934 1347C856.68 1347 794 1409.68 794 1487" stroke="url(#gradIndigo)" strokeWidth="4" strokeDasharray="17 17"/>
+          <path d="M197 1672C197 1563.75 109.248 1476 1 1476C-107.248 1476 -195 1563.75 -195 1672" stroke="url(#gradGray)" strokeWidth="80"/>
+          <path d="M1074 1567C1074 1489.68 1011.32 1427 934 1427C856.68 1427 794 1489.68 794 1567" stroke="url(#gradIndigo)" strokeWidth="4" strokeDasharray="17 17"/>
           <circle r="209" fill="url(#gradIndigo)"/>
           {/* ドットテクスチャ（左上に視線を集める） */}
           <circle cx="222" cy="136" r="4" fill="url(#gradIndigo)"/>

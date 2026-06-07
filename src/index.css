@@ -11,28 +11,28 @@ html {
 :root {
   --color-bg: #f4f5f7;
   --color-surface: #ffffff;
-  --color-primary: #4338ca;
-  --color-primary-hover: #3730a3;
-  --color-good: #059669;
-  --color-good-bg: #ecfdf5;
-  --color-good-border: #6ee7b7;
-  --color-bad: #dc2626;
-  --color-bad-bg: #fff5f5;
+  --color-primary: #1d55d4;
+  --color-primary-hover: #1744b8;
+  --color-good: #1a7f4b;
+  --color-good-bg: #f0fdf4;
+  --color-good-border: #86efac;
+  --color-bad: #c0312b;
+  --color-bad-bg: #fff1f1;
   --color-bad-border: #fca5a5;
   --color-text: #111827;
   --color-text-muted: #6b7280;
   --color-border: #e5e7eb;
-  --color-correct: #059669;
-  --color-correct-bg: #d1fae5;
-  --color-incorrect: #dc2626;
-  --color-incorrect-bg: #fee2e2;
-  --color-primary-light: #4f46e5;
-  --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  --color-correct: #1a7f4b;
+  --color-correct-bg: #dcfce7;
+  --color-incorrect: #c0312b;
+  --color-incorrect-bg: #fff1f1;
+  --color-primary-light: #3b74f0;
+  --gradient-primary: #1d55d4;
   --shadow-sm: 0 1px 2px rgba(17,24,39,.06), 0 1px 3px rgba(17,24,39,.08);
   --shadow-md: 0 2px 4px rgba(17,24,39,.04), 0 8px 16px rgba(17,24,39,.08);
   --shadow-lg: 0 4px 8px rgba(17,24,39,.04), 0 16px 32px rgba(17,24,39,.10);
-  --shadow-primary: 0 6px 16px rgba(79,70,229,.28), 0 2px 6px rgba(79,70,229,.20);
-  --shadow-primary-hover: 0 10px 28px rgba(79,70,229,.36), 0 4px 10px rgba(79,70,229,.24);
+  --shadow-primary: 0 6px 16px rgba(29,85,212,.28), 0 2px 6px rgba(29,85,212,.20);
+  --shadow-primary-hover: 0 10px 28px rgba(29,85,212,.36), 0 4px 10px rgba(29,85,212,.24);
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 18px;
@@ -75,9 +75,9 @@ button {
 }
 
 @keyframes pulse-correct {
-  0% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(5, 150, 105, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(26, 127, 75, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(26, 127, 75, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(26, 127, 75, 0); }
 }
 
 @keyframes slide-up {

@@ -114,6 +114,7 @@
   border-radius: 50%;
   background: var(--gradient-primary);
   color: #fff;
+  font-family: var(--font-display);
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -136,6 +137,7 @@
 }
 
 .hItemEn {
+  font-family: var(--font-display);
   font-size: 11px;
   color: var(--color-text-muted);
 }

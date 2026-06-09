@@ -52,11 +52,8 @@
 }
 
 .scoreSection {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  padding: 36px 24px;
+  padding: 28px 24px 12px;
   text-align: center;
-  box-shadow: var(--shadow-md);
   margin-bottom: 24px;
 }
 
@@ -121,91 +118,202 @@
   margin-bottom: 24px;
 }
 
-.reviewHeading {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-text-muted);
-  letter-spacing: 0.04em;
-  margin-bottom: 12px;
-  padding-left: 4px;
-}
-
-.reviewList {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.reviewItem {
+.reviewCard {
   background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 18px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-bottom: 12px;
 }
 
-.reviewHeader {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.reviewHeading {
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.reviewCard .panel {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* 白コンテンツパネル：回答一覧全体を1枚に包む（Quiz画面の .main と統一） */
+.panel {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 4px 20px;
+  box-shadow: var(--shadow-md);
+}
+
+.allCorrect {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-correct);
+  padding: 28px 8px;
+}
+
+/* レビュー項目：連続リスト。項目間は1本のヘアラインのみ */
+.list {
+  list-style: none;
+}
+
+.item {
+  padding: 20px 0;
+}
+
+
+/* QuizScreen の .questionNum と同系 — 各itemの番号見出し */
+.itemNum {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
   margin-bottom: 10px;
 }
 
-.correctBadge {
+.itemSituation {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--color-text);
+  margin-bottom: 14px;
+}
+
+/* あなたの回答（callout 内、正解の下） */
+.yourAnswer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.labelCorrect {
   flex-shrink: 0;
+  width: 48px;
+  text-align: center;
   font-size: 11px;
   font-weight: 700;
-  color: var(--color-correct);
+  padding: 3px 0;
+  border-radius: 100px;
   background: var(--color-correct-bg);
-  padding: 3px 10px;
-  border-radius: 100px;
+  color: var(--color-correct);
 }
 
-.incorrectBadge {
+.labelWrong {
   flex-shrink: 0;
+  width: 48px;
+  text-align: center;
   font-size: 11px;
-  font-weight: 700;
-  color: var(--color-incorrect);
-  background: var(--color-incorrect-bg);
-  padding: 3px 10px;
+  font-weight: 400;
+  padding: 3px 0;
   border-radius: 100px;
+  background: var(--color-incorrect-bg);
+  color: var(--color-incorrect);
 }
 
-.correctPrinciple {
+.metaWrong {
   font-size: 13px;
   font-weight: 600;
   color: var(--color-text);
+  line-height: 1.5;
 }
 
-.yourAnswer {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  margin-bottom: 10px;
-}
-
-.reviewSituation {
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--color-text);
-  margin-bottom: 12px;
-}
-
-.reviewExplanation {
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--color-text-muted);
-  border-top: 1px solid var(--color-border);
-  padding-top: 12px;
-}
-
-.perfect {
-  text-align: center;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-correct);
-  background: var(--color-correct-bg);
-  padding: 20px;
+/* QuizScreen の .feedback と同一スタイル */
+.callout {
+  background: #f9fafb;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  margin-bottom: 24px;
+  padding: 16px 18px;
+  margin-top: 14px;
+}
+
+/* 正解＋あなたの回答をまとめて下罫線で区切る */
+.calloutAnswers {
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.calloutAnswer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.calloutText {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+/* 正解した問題：アコーディオン */
+.accordion {
+  margin-top: 12px;
+}
+
+/* 開いたとき toggle + panel を1枚のカードに統合 */
+.accordionOpen {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.accordionToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+  transition: background 0.15s;
+}
+
+.accordionToggle:hover {
+  background: #fafafa;
+}
+
+/* 開いたとき toggle をカードヘッダーに変換 */
+.accordionOpen .accordionToggle {
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+}
+
+/* 開いたとき panel はカードボディ（影・角丸を無効化） */
+.accordionOpen .panel {
+  border-radius: 0;
+  box-shadow: none;
+  margin-top: 0;
+  animation: slide-up 0.25s ease;
+}
+
+.chevron {
+  display: inline-block;
+  font-size: 18px;
+  color: var(--color-text-muted);
+  transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
 }
 
 .retryWrap {

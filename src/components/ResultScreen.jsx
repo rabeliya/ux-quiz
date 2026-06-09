@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styles from './ResultScreen.module.css'
 import { HEURISTICS, getCorrectIds } from '../data/questions'
 
@@ -27,6 +28,34 @@ export default function ResultScreen({ answers, level = 'normal', onRetry }) {
   const total = answers.length
   const rank = getRank(score)
   const isAdvanced = level === 'advanced'
+  const [showCorrect, setShowCorrect] = useState(false)
+
+  // 出題順の番号を保持したまま正解／不正解に振り分ける
+  const items = answers.map((a, i) => ({ ...a, num: i + 1 }))
+  const incorrectItems = items.filter(a => !a.isCorrect)
+  const correctItems = items.filter(a => a.isCorrect)
+
+  const renderItem = (a) => (
+    <li key={a.num} className={styles.item}>
+      <p className={styles.itemNum}>{String(a.num).padStart(2, '0')}.</p>
+      <p className={styles.itemSituation}>{a.question.situation}</p>
+      <div className={styles.callout}>
+        <div className={styles.calloutAnswers}>
+          <p className={styles.calloutAnswer}>
+            <span className={styles.labelCorrect}>正解</span>
+            {heuristicNames(getCorrectIds(a.question))}
+          </p>
+          {!a.isCorrect && (
+            <div className={styles.yourAnswer}>
+              <span className={styles.labelWrong}>あなた</span>
+              <span className={styles.metaWrong}>{heuristicNames(a.selected)}</span>
+            </div>
+          )}
+        </div>
+        <p className={styles.calloutText}>{a.question.explanation}</p>
+      </div>
+    </li>
+  )
 
   return (
     <>
@@ -131,22 +160,40 @@ export default function ResultScreen({ answers, level = 'normal', onRetry }) {
       </div>
 
       <section className={styles.reviewSection}>
-        <h2 className={styles.reviewHeading}>回答一覧（{answers.length}問）</h2>
-        <div className={styles.reviewList}>
-          {answers.map((a, i) => (
-            <div key={i} className={styles.reviewItem}>
-              <div className={styles.reviewHeader}>
-                <span className={a.isCorrect ? styles.correctBadge : styles.incorrectBadge}>
-                  {a.isCorrect ? '正解' : '不正解'}
-                </span>
-                <span className={styles.correctPrinciple}>{heuristicNames(getCorrectIds(a.question))}</span>
-              </div>
-              <p className={styles.yourAnswer}>あなたの回答：{heuristicNames(a.selected)}</p>
-              <p className={styles.reviewSituation}>{a.question.situation}</p>
-              <p className={styles.reviewExplanation}>{a.question.explanation}</p>
-            </div>
-          ))}
+        <div className={styles.reviewCard}>
+          <h2 className={styles.reviewHeading}>
+            {incorrectItems.length > 0 ? `間違えた問題（${incorrectItems.length}問）` : '復習'}
+          </h2>
+          <div className={styles.panel}>
+            {incorrectItems.length === 0 ? (
+              <p className={styles.allCorrect}>全問正解！文句なしです 🎉</p>
+            ) : (
+              <ul className={styles.list}>
+                {incorrectItems.map(renderItem)}
+              </ul>
+            )}
+          </div>
         </div>
+
+        {correctItems.length > 0 && (
+          <div className={`${styles.accordion} ${showCorrect ? styles.accordionOpen : ''}`}>
+            <button
+              className={styles.accordionToggle}
+              onClick={() => setShowCorrect(v => !v)}
+              aria-expanded={showCorrect}
+            >
+              <span>正解した問題（{correctItems.length}問）</span>
+              <span className={`${styles.chevron} ${showCorrect ? styles.chevronOpen : ''}`} aria-hidden="true">▾</span>
+            </button>
+            {showCorrect && (
+              <div className={styles.panel}>
+                <ul className={styles.list}>
+                  {correctItems.map(renderItem)}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       <div className={styles.retryWrap}>

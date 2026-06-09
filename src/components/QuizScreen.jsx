@@ -202,6 +202,9 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
 
       <main className={styles.main}>
         <div className={styles.card} key={question.id}>
+          <div className={styles.questionLabel}>
+            <span className={styles.questionNum}>{String(currentIndex + 1).padStart(2, '0')}.</span>
+          </div>
           <p className={styles.situation}>{question.situation}</p>
 
           <p className={styles.questionText}>

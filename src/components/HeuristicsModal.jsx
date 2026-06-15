@@ -25,7 +25,7 @@ export default function HeuristicsModal({ onClose }) {
           {HEURISTICS.map(h => (
             <div key={h.id} className={styles.hItem}>
               <div className={styles.hItemHeader}>
-                <span className={styles.hItemNum}>{h.id}</span>
+                <span className={styles.hItemNum}>原則{h.id}</span>
                 <div className={styles.hItemNames}>
                   <span className={styles.hItemName}>{h.name}</span>
                   <span className={styles.hItemEn}>{h.en}</span>

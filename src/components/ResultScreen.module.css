@@ -2,6 +2,7 @@
   height: 100dvh;
   overflow-y: auto;
   scrollbar-width: none;
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
   padding: 32px 16px 48px;
@@ -258,15 +259,16 @@
 /* 正解した問題：アコーディオン */
 .accordion {
   margin-top: 12px;
-}
-
-/* 開いたとき toggle + panel を1枚のカードに統合 */
-.accordionOpen {
-  background: var(--color-surface);
+  width: 100%;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
   overflow: hidden;
+}
+
+/* 開いたとき shadow を追加 */
+.accordionOpen {
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
 }
 
 .accordionToggle {
@@ -277,8 +279,6 @@
   width: 100%;
   padding: 14px 18px;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
   font-size: 13px;
   font-weight: 700;
   color: var(--color-text);
@@ -292,9 +292,7 @@
 
 /* 開いたとき toggle をカードヘッダーに変換 */
 .accordionOpen .accordionToggle {
-  border: none;
   border-bottom: 1px solid var(--color-border);
-  border-radius: 0;
 }
 
 /* 開いたとき panel はカードボディ（影・角丸を無効化） */

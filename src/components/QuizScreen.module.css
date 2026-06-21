@@ -401,6 +401,18 @@
   animation: slide-up 0.3s ease;
 }
 
+/* タッチデバイス：確定ボタンを画面下に追従（floating） */
+.footerFloating {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  margin-top: auto;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding: 12px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(to top, var(--color-bg) 72%, transparent);
+}
+
 .nextBtn {
   position: relative;
   width: 100%;

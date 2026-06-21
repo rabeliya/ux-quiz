@@ -9,17 +9,26 @@ const isExactMatch = (a, b) => {
   return [...a].sort((x, y) => x - y).every((v, i) => v === sortedB[i])
 }
 
+// タッチ主体のデバイス（マウスホバー不可・粗いポインタ）かどうか
+const isTouchDevice = () =>
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia('(hover: none) and (pointer: coarse)').matches
+
 export default function QuizScreen({ questions, level = 'normal', onComplete, onQuit }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selected, setSelected] = useState([])
   const [answered, setAnswered] = useState(false)
   const [showQuitConfirm, setShowQuitConfirm] = useState(false)
   const [showRef, setShowRef] = useState(false)
+  const [isTouch] = useState(isTouchDevice)
   const answersRef = useRef([])
   const containerRef = useRef(null)
 
   const isAdvanced = level === 'advanced'
   const pickCount = isAdvanced ? 2 : 1
+  // 上級は常に確定ステップあり。通常はタッチデバイスのときだけ確定ステップを挟む
+  const needsConfirm = isAdvanced || isTouch
   const question = questions[currentIndex]
   const isGood = question.type === 'good'
   const correctIds = getCorrectIds(question)
@@ -39,7 +48,12 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
   const handleSelect = (id) => {
     if (answered) return
     if (!isAdvanced) {
-      submitAnswer([id])
+      // マウス環境は従来どおり即確定。タッチは選択のみ（確定は「回答する」）
+      if (!isTouch) {
+        submitAnswer([id])
+        return
+      }
+      setSelected((prev) => (prev.includes(id) ? [] : [id]))
       return
     }
     setSelected((prev) => {
@@ -177,7 +191,7 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
               10原則
             </button>
             <button className={styles.quitBtn} onClick={() => setShowQuitConfirm(true)}>
-              やめる
+              中断する
             </button>
           </div>
         </div>
@@ -191,10 +205,10 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
       {showQuitConfirm && (
         <div className={styles.overlay} onClick={() => setShowQuitConfirm(false)}>
           <div className={styles.quitDialog} onClick={e => e.stopPropagation()}>
-            <p className={styles.quitMessage}>クイズを終了しますか？<br />進捗はリセットされます。</p>
+            <p className={styles.quitMessage}>クイズを中断しますか？</p>
             <div className={styles.quitActions}>
               <button className={styles.quitCancel} onClick={() => setShowQuitConfirm(false)}>続ける</button>
-              <button className={styles.quitConfirmBtn} onClick={onQuit}>終了する</button>
+              <button className={styles.quitConfirmBtn} onClick={onQuit}>中断する</button>
             </div>
           </div>
         </div>
@@ -253,15 +267,17 @@ export default function QuizScreen({ questions, level = 'normal', onComplete, on
         )}
       </main>
 
-      {isAdvanced && !answered && (
-        <footer className={styles.footer}>
+      {needsConfirm && !answered && (
+        <footer className={`${styles.footer} ${isTouch ? styles.footerFloating : ''}`}>
           <button
             className={styles.nextBtn}
             onClick={handleConfirm}
             disabled={selected.length !== pickCount}
           >
             {selected.length < pickCount
-              ? `あと ${pickCount - selected.length} つ選択`
+              ? isAdvanced
+                ? `あと ${pickCount - selected.length} つ選択`
+                : '選択してください'
               : '回答する'}
           </button>
         </footer>
